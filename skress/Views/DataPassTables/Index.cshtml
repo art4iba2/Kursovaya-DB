@@ -1,0 +1,47 @@
+﻿@model IEnumerable<skress.Models.DataPassTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Данные о проходах</h1>
+
+<p>
+    <a asp-action="Create">Создать новую запись</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название трека
+            </th>
+            <th>
+                ID Пропуска
+            </th>
+            <th>
+                Дата прохода
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Track.NameTrack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_Pass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePass)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_datapass">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_datapass">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_datapass">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

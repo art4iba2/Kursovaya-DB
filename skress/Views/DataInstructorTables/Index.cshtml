@@ -1,0 +1,60 @@
+﻿@model IEnumerable<skress.Models.DataInstructorTable>
+
+@{
+    ViewData["Title"] = "Расписание занятий";
+}
+
+<h1>Расписание занятий</h1>
+
+<p>
+    <a asp-action="Create">Создать новую запись</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Посетитель
+            </th>
+            <th>
+                Инструктор
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Время начала
+            </th>
+            <th>
+                Время окончания
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Visitors.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instructor.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeEnd)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_Event">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_Event">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_Event">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

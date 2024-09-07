@@ -1,0 +1,53 @@
+﻿@model skress.Models.TrackTable
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Создать</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NameTrack" class="control-label"></label>
+                <input asp-for="NameTrack" class="form-control" />
+                <span asp-validation-for="NameTrack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Difficulty" class="control-label"></label>
+                <input asp-for="Difficulty" class="form-control" />
+                <span asp-validation-for="Difficulty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackLength" class="control-label"></label>
+                <input asp-for="TrackLength" class="form-control" />
+                <span asp-validation-for="TrackLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackDelta" class="control-label"></label>
+                <input asp-for="TrackDelta" class="form-control" />
+                <span asp-validation-for="TrackDelta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackWidth" class="control-label"></label>
+                <input asp-for="TrackWidth" class="form-control" />
+                <span asp-validation-for="TrackWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

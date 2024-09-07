@@ -1,0 +1,65 @@
+﻿@model IEnumerable<skress.Models.DataRentTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Аренда снаряжения</h1>
+
+<p>
+    <a asp-action="Create">Создание записи</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Посетитель
+            </th>
+            <th>
+                Оборудование
+            </th>
+            <th>
+                Документ посетителя
+            </th>
+            <th>
+                Время начала аренды
+            </th>
+            <th>
+                Время окончания аренды
+            </th>
+            <th>
+                Сумма
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorEq.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equip.Info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorsDocument)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_DataRent">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_DataRent">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_DataRent">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<skress.Models.TrackTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Трассы</h1>
+
+<p>
+    <a asp-action="Create">Добавление трассы</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameTrack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Difficulty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackLength)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackDelta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackWidth)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameTrack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difficulty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackLength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackDelta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackWidth)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_track">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_track">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_track">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

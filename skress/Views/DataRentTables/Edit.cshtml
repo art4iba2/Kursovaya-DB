@@ -1,0 +1,59 @@
+﻿@model skress.Models.DataRentTable
+
+@{
+    ViewData["Title"] = "Изменение записи";
+}
+
+<h1>Редактирование</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_DataRent" />
+            <div class="form-group">
+                <label asp-for="ID_Visitor" class="control-label"></label>
+                <input asp-for="ID_Visitor" class="form-control" />
+                <span asp-validation-for="ID_Visitor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_equip" class="control-label"></label>
+                <input asp-for="Id_equip" class="form-control" />
+                <span asp-validation-for="Id_equip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VisitorsDocument" class="control-label"></label>
+                <input asp-for="VisitorsDocument" class="form-control" />
+                <span asp-validation-for="VisitorsDocument" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeStart" class="control-label"></label>
+                <input asp-for="TimeStart" class="form-control" />
+                <span asp-validation-for="TimeStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeEnd" class="control-label"></label>
+                <input asp-for="TimeEnd" class="form-control" />
+                <span asp-validation-for="TimeEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentPrice" class="control-label"></label>
+                <input asp-for="RentPrice" class="form-control" />
+                <span asp-validation-for="RentPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

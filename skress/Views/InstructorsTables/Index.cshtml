@@ -1,0 +1,65 @@
+﻿@model IEnumerable<skress.Models.InstructorsTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Инструкторы</h1>
+
+<p>
+    <a asp-action="Create">Добавление инструктора</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthdayDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Experience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthdayDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_instructors">Редактитрование</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_instructors">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_instructors">Удаление</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

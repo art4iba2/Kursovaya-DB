@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выберите вашу роль</title>
+    <!-- Подключение Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Выберите вашу роль</h1>
+        <div class="row mt-5">
+            <div class="col-md-6 text-center">
+                <!-- Кнопка для выбора роли администратора -->
+                <button class="btn btn-primary btn-lg" onclick="showLoginFields('admin')">Администратор</button>
+                <div class="login-fields" id="admin-fields" style="display: none;">
+                    <!-- Поля ввода логина и пароля для администратора -->
+                    <input type="text" id="admin-login" placeholder="Логин">
+                    <input type="password" id="admin-password" placeholder="Пароль">
+                    <!-- Кнопка для входа как администратор -->
+                    <button onclick="loginAsAdmin()">Войти</button>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <!-- Кнопка для выбора роли Менеджера -->
+                <button class="btn btn-success btn-lg" onclick="showLoginFields('manager')">Менеджер</button>
+                <div class="login-fields" id="manager-fields" style="display: none;">
+                    <!-- Поля ввода логина и пароля для Менеджера -->
+                    <input type="text" id="manager-login" placeholder="Логин">
+                    <input type="password" id="manager-password" placeholder="Пароль">
+                    <!-- Кнопка для входа как Менеджер -->
+                    <button onclick="loginAsManager()">Войти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-5">
+        <!-- Информация о курсовом проекте -->
+        <p></p>
+    </div>
+    <script>
+        // Функция для отображения полей ввода в зависимости от выбранной роли
+        function showLoginFields(role) {
+            var adminFields = document.getElementById('admin-fields');
+            var managerFields = document.getElementById('manager-fields');
+
+            adminFields.style.display = 'none';
+            managerFields.style.display = 'none';
+
+            if (role === 'admin') {
+                adminFields.style.display = 'block';
+            } else if (role === 'manager') {
+                managerFields.style.display = 'block';
+            }
+        }
+
+        // Функция для входа как администратор
+        function loginAsAdmin() {
+            var adminLogin = document.getElementById('admin-login').value;
+            var adminPassword = document.getElementById('admin-password').value;
+
+            // Проверка логина и пароля
+            if (adminLogin === 'admin' && adminPassword === 'admin') {
+                // Перенаправление на страницу Home\Admin
+                window.location.href = "/Home/Admin";
+            } else {
+                alert('Неправильный логин или пароль для администратора!');
+            }
+        }
+
+        // Функция для входа как Менеджер
+        function loginAsManager() {
+            var managerLogin = document.getElementById('manager-login').value;
+            var managerPassword = document.getElementById('manager-password').value;
+
+            // Проверка логина и пароля
+            if (managerLogin === 'manager' && managerPassword === 'manager') {
+                // Перенаправление на страницу Home\Manager для Менеджера
+                window.location.href = "/Home/Manager";
+            } else {
+                alert('Неправильный логин или пароль для Менеджера!');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

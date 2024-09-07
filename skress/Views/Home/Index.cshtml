@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Главная";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .block {
+            width: calc(50% - 20px);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="block">
+            <h2>Посетители</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "VisitorsTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Инструкторы</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "InstructorsTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Пропуска</h2>
+            <p>.</p>
+            <a href="@Url.Action("Index", "PassTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Снаряжение</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "EquipmentTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Аренда</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "DataRentTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Треки</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "TrackTables")">Ссылка</a>
+        </div>
+
+        <div class="block">
+            <h2>Данные прохода</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "DataPassTables")">Ссылка</a>
+        </div>
+        <div class="block">
+            <h2>Данные занятий</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "DataInstructorTables")">Ссылка</a>
+        </div>
+        <div class="block">
+            <h2>Работники</h2>
+            <p></p>
+            <a href="@Url.Action("Index", "WorkersTables")">Ссылка</a>
+        </div>
+
+        
+    </div>
+</body>
+</html>
