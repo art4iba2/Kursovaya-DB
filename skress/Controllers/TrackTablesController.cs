@@ -66,6 +66,12 @@ namespace skress.Controllers
         {
             if (ModelState.IsValid)
             {
+                string role = HttpContext.Session.GetString("Role");
+                if (role != "Admin") // Проверяем роль пользователя
+                {
+                    TempData["ErrorMessage"] = "У вас нет доступа к этой функции";
+                    return RedirectToAction("Index", "Home");
+                }
                 _context.Add(trackTable);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

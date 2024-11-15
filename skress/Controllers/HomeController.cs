@@ -1,6 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using skress.Models;
 using System.Diagnostics;
+using System.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Data;
+using System.Data.SqlTypes;
+
 
 namespace skress.Controllers
 {
@@ -12,6 +18,36 @@ namespace skress.Controllers
         {
             _logger = logger;
         }
+
+        public List<avgprice> Getavgprcierent()
+        {
+            List<avgprice> rentprices = new List<avgprice>();
+            string connectionstring = "MyDbConnection";
+            
+            using (SqlConnection connection = new SqlConnection(connectionstring))
+            {
+                SqlCommand comand = new SqlCommand("Getavgpricerent", connection);
+                comand.CommandType = CommandType.StoredProcedure;
+                
+
+                connection.Open();
+                using (SqlDataReader reader = comand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        rentprices.Add(new avgprice
+                        {
+                            Equipname = reader["Equip_Type"].ToString(),
+                            Size = (float)reader["Size"],
+                            rentprice = (decimal)(SqlMoney)reader["AVG_Rent_price"]
+                        });
+                    }
+                }
+            }
+            return rentprices;
+        }
+
+                
 
         // Действие для установки роли "Менеджер" и перенаправления на страницу таблиц
         public IActionResult Manager()

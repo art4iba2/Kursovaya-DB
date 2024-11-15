@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using skress.Models;
+using System.Data.SqlClient;
 
 namespace skress.Controllers
 {
@@ -18,7 +21,38 @@ namespace skress.Controllers
         {
             _context = context;
         }
+        public List<avgprice> MyProcedure()
+        {
+            List<avgprice> rentprices = new List<avgprice>();
+            string connectionstring = "Server=LAPTOP-P6JDQUOH\\SQLEXPRESS;Database=Ski_resort;Trusted_Connection=True;";
 
+            using (SqlConnection connection = new SqlConnection(connectionstring))
+            {
+                SqlCommand comand = new SqlCommand("MyProcedure", connection);
+                comand.CommandType = CommandType.StoredProcedure;
+
+
+                connection.Open();
+                using (SqlDataReader reader = comand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        rentprices.Add(new avgprice
+                        {
+                            Equipname = reader["Equip_Type"].ToString(),
+                            Size = Convert.ToSingle(reader["Size"]),
+                            rentprice = (decimal)reader["AVG_Rent_price"]
+                        });
+                    }
+                }
+            }
+            return rentprices;
+        }
+        public ActionResult ShowAvgPrices()
+        {
+            List<avgprice> rentPrices = MyProcedure();
+            return View(rentPrices);
+        }
         // GET: DataRentTables
         public async Task<IActionResult> Index()
         {

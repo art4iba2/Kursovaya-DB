@@ -21,6 +21,12 @@ namespace skress.Controllers
         // GET: WorkersTables
         public async Task<IActionResult> Index()
         {
+            string role = HttpContext.Session.GetString("Role");
+            if (role != "Admin") // Проверяем роль пользователя
+            {
+                TempData["ErrorMessage"] = "У вас нет доступа к этой функции";
+                return RedirectToAction("Index", "Home");
+            }
             return _context.WorkersTable != null ?
                         View(await _context.WorkersTable.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.WorkersTable'  is null.");

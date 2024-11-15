@@ -1,0 +1,23 @@
+﻿@model List<skress.Models.avgprice>
+
+<h2>Average Rent Prices</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Equipment Name</th>
+            <th>Size</th>
+            <th>Average Rent Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Equipname</td>
+                <td>@item.Size</td>
+                <td>@item.rentprice</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -20,7 +20,7 @@ namespace skress.Controllers
         }
 
         // GET: DataPassTables
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime? startDate, DateTime? endDate)
         {
             string role = HttpContext.Session.GetString("Role");
             if (role != "Manager" && (role != "Admin")) // Проверяем роль пользователя
@@ -28,12 +28,34 @@ namespace skress.Controllers
                 TempData["ErrorMessage"] = "У вас нет доступа к этой функции";
                 return RedirectToAction("Index", "Home");
             }
-            var dataTrackTable = await _context.DataPassTable
-                .Include(x=>x.Track)
-                .ToListAsync();
-            var dataPassTable = await _context.DataPassTable
-              .Include(x => x.Pass)
-              .ToListAsync();
+
+            // Запрос данных с учетом фильтрации по диапазону дат
+            var query = _context.DataPassTable.Include(x => x.Track).Include(x => x.Pass).AsQueryable();
+
+            if (startDate.HasValue)
+            {
+                query = query.Where(x => x.DatePass >= startDate.Value);
+            }
+
+            if (endDate.HasValue)
+            {
+                query = query.Where(x => x.DatePass <= endDate.Value);
+            }
+
+            var dataTable = await query.ToListAsync();
+            ViewBag.StartDate = startDate?.ToString("yyyy-MM-dd");
+                        ViewBag.EndDate = endDate?.ToString("yyyy-MM-dd");
+
+                        var dataTrackTable = await _context.DataPassTable
+                            .Include(x=>x.Track)
+                            .ToListAsync();
+                        var dataPassTable = await _context.DataPassTable
+                          .Include(x => x.Pass)
+                          .ToListAsync();
+            return View(dataTable);
+
+            // Передача диапазона дат обратно в View через ViewBag
+            
             return _context.DataPassTable != null ? 
                           View(await _context.DataPassTable.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.DataPassTable'  is null.");

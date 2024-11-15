@@ -20,18 +20,35 @@ namespace skress.Controllers
         }
 
         // GET: EquipmentTables
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string equipmentType)
         {
             string role = HttpContext.Session.GetString("Role");
-            if (role != "Manager" && (role != "Admin")) // Проверяем роль пользователя
+            if (role != "Manager" && role != "Admin") // Проверяем роль пользователя
             {
                 TempData["ErrorMessage"] = "У вас нет доступа к этой функции";
                 return RedirectToAction("Index", "Home");
             }
-            return _context.EquipmentTable != null ? 
-                          View(await _context.EquipmentTable.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.EquipmentTable'  is null.");
+
+            // Получение уникальных типов снаряжения
+            ViewBag.EquipmentTypes = await _context.EquipmentTable
+                .Select(x => x.EquipmentType)
+                .Distinct()
+                .ToListAsync();
+
+            // Фильтрация данных
+            var query = _context.EquipmentTable.AsQueryable();
+
+            if (!string.IsNullOrEmpty(equipmentType))
+            {
+                query = query.Where(x => x.EquipmentType == equipmentType);
+            }
+
+            ViewBag.EquipmentType = equipmentType; // Передача выбранного фильтра в ViewBag
+
+            return View(await query.ToListAsync());
         }
+
+
 
         // GET: EquipmentTables/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<skress.Models.VisitorInfo>
+
+<h2>Visitor Information</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Visitor Name</th>
+            <th>Visitor Surname</th>
+            <th>Birthday</th>
+            <th>Pass Type</th>
+            <th>Number of Entries</th>
+            <th>Equipment Type</th>
+            <th>Track Name</th>
+            <th>Track Difficulty</th>
+            <th>Instructor Name</th>
+            <th>Instructor Surname</th>
+            <th>Instructor Specialization</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.VisitorName</td>
+                <td>@item.VisitorSurname</td>
+                <td>@item.VisitorBirthday.ToString("yyyy-MM-dd")</td>
+                <td>@item.PassType</td>
+                <td>@item.NumberOfEntries</td>
+                <td>@item.EquipmentType</td>
+                <td>@item.TrackName</td>
+                <td>@item.TrackDifficulty</td>
+                <td>@item.InstructorName</td>
+                <td>@item.InstructorSurname</td>
+                <td>@item.InstructorSpecialization</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -57,7 +57,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id_DataRent">Изменить</a> |
                 <a asp-action="Details" asp-route-id="@item.Id_DataRent">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_DataRent">Удалить</a>
+                <a asp-action="Delete" asp-route-id="@item.Id_DataRent">Удалить</a> |
+                    <a asp-action="ShowAvgPrices" asp-route-id="@item.Id_DataRent">Узнать среднее</a>
             </td>
         </tr>
 }

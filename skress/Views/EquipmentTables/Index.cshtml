@@ -1,41 +1,70 @@
 ﻿@model IEnumerable<skress.Models.EquipmentTable>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Снаряжение";
 }
 
 <h1>Снаряжение</h1>
 
+<!-- Форма фильтрации -->
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <div class="form-group">
+        <label for="equipmentType" class="mr-2">Тип снаряжения:</label>
+        <select id="equipmentType" name="equipmentType" class="form-control mr-2">
+            <option value="">Все</option>
+            @foreach (var type in ViewBag.EquipmentTypes as List<string>)
+            {
+                if (type == ViewBag.EquipmentType)
+                {
+                    <option value="@type" selected>@type</option>
+                }
+                else
+                {
+                    <option value="@type">@type</option>
+                }
+            }
+        </select>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary">Фильтровать</button>
+</form>
+
+<!-- Ссылка для сброса фильтра -->
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index" class="btn btn-secondary">Сбросить фильтр</a>
 </p>
+
+<!-- Таблица данных -->
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EquipmentType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.First().EquipmentType)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Size)</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EquipmentType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id_equipment">Изменить</a> |
-                <a asp-action="Details" asp-route-id="@item.Id_equipment">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_equipment">Удалить</a>
-            </td>
-        </tr>
-}
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.EquipmentType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Size)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id_equipment">Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id_equipment">Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id_equipment">Удалить</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">Нет данных для отображения</td>
+            </tr>
+        }
     </tbody>
 </table>
